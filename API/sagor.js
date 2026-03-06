@@ -1,18 +1,16 @@
 /**
  * ============================================
  *  Coded with ➲ by SAGOR
- *  Author: SAGOR
- *  Image Search API (1-50)
  * ============================================
  */
 
-export default async function handler(req, res) {
+export default function handler(req, res) {
 
   const API_KEY = "sagor";
 
   try {
 
-    const { q, apikey, limit } = req.query;
+    const { q, limit, apikey } = req.query;
 
     let amount = parseInt(limit) || 4;
 
@@ -41,20 +39,20 @@ export default async function handler(req, res) {
       images.push(`https://source.unsplash.com/600x600/?${encodeURIComponent(q)}&sig=${i}`);
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       status: "success",
       author: "SAGOR",
       total: images.length,
       data: images
     });
 
-  } catch (error) {
+  } catch (err) {
 
-    res.status(500).json({
+    return res.status(500).json({
       status: "error",
       author: "SAGOR",
       message: "API failed",
-      error: error.message
+      error: err.message
     });
 
   }
